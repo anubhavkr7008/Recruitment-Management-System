@@ -1,0 +1,95 @@
+﻿@model IPagedList<Test_Identity.Models.InterviewRound2>
+
+@{
+    ViewBag.Title = "Index1";
+}
+
+@*@using PagedList.MVC;*@
+@using PagedList;
+
+<h2>Index1</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<p>
+    @using (Html.BeginForm("Index", "InterviewRound2", FormMethod.Get))
+    {
+        <b>Search </b>@Html.RadioButton("SearchBy", "Firstname", true)<b>Candidate name</b>
+        @Html.RadioButton("SearchBy", "SelectedSkillID", true)<b>Skill</b>
+        @Html.RadioButton("SearchBy", "Round", true)<b>Round</b>
+        @Html.RadioButton("SearchBy", "Result", true)<b>Result</b>
+        @Html.TextBox("Search")<input type="submit" value="Search" />
+    }
+</p>
+
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Candidate.Firstname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Interview.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Jobs.JobName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Round)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().ModeOfInterview)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Date_Time)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Comments)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Results)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Candidate.Firstname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Interview.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Jobs.JobName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Round)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModeOfInterview)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date_Time)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comments)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Results)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id }) |
+                @Html.ActionLink("History", "History", new { id = item.Id }) 
+            </td>
+        </tr>
+    }
+
+</table>
+
+@*@Html.PagedListPager(Model,i=>Url.Action("Index", "InterviewRound2",new {i, search=Request.QueryString["search"]}))*@
